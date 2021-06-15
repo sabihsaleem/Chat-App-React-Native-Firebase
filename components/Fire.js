@@ -1,21 +1,6 @@
-// import firebase from '@react-native-firebase/database';
-import { firebase } from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
 import { Platform } from 'react-native';
-
-let config = {
-    apiKey: Platform.OS === 'android' ? 'AIzaSyBgVO5d2eanY_hSpGBo6uFZ_hCPmy1FqOY' : 'AIzaSyAEJVvMXafMciSPBqD-j1E4mgtGQe5H5Ms',
-    authDomain: Platform.OS ==='android' ? '12063586025-ls0229j42oies46alenmjec5qd4n4lls.apps.googleusercontent.com' : '12063586025-aeueimj1lee0katgd87nikboc1id9h9g.apps.googleusercontent.com' ,
-    databaseURL: 'https://another-chat-app-3fc78-default-rtdb.firebaseio.com/',
-    projectId: 'another-chat-app-3fc78',
-    storageBucket: 'another-chat-app-3fc78.appspot.com',
-    messagingSenderId: '12063586025',
-    appId: '1:12063586025:android:12fff05416c05f4eeda278',
-    project_number: "12063586025",
-  };
-  let app;
-  if (firebase.apps.length === 0) {
-    app = firebase.initializeApp(config);
-  }
 
 class Fire {
   constructor() {
@@ -23,13 +8,13 @@ class Fire {
   }
 
   observeAuth = () =>{
-    firebase.auth().onAuthStateChanged(this.onAuthStateChanged)
+    auth().onAuthStateChanged(this.onAuthStateChanged)
   }
 
   onAuthStateChanged = user => {
     if (!user) {
       try {
-        firebase.auth().signInAnonymously();
+        auth().signInAnonymously();
       } catch ({ message }) {
         alert(message);
       }
@@ -37,11 +22,11 @@ class Fire {
   };
 
   get uid() {
-    return (firebase.auth().currentUser || {}).uid;
+    return (auth().currentUser || {}).uid;
   }
 
   get ref() {
-    return firebase.database().ref('messages');
+    return database().ref('messages');
   }
 
   parse = snapshot => {
@@ -63,7 +48,7 @@ class Fire {
       .on('child_added', snapshot => callback(this.parse(snapshot)));
 
   get timestamp() {
-    return firebase.database.ServerValue.TIMESTAMP;
+    return database.ServerValue.TIMESTAMP;
   }
   // send the message to the Backend
   send = messages => {

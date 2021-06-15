@@ -23,11 +23,12 @@ class Main extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={{flex: 1}}>
         <Text style={styles.title}>Enter your name:</Text>
         <TextInput
           style={styles.nameInput}
-          placeHolder="John Cena"
+          placeHolder={"John Cena"}
+          placeholderTextColor={'red'}
           onChangeText={this.onChangeText}
           value={this.state.name}
         />
@@ -48,7 +49,6 @@ const styles = StyleSheet.create({
   },
   nameInput: {
     height: offset * 2,
-
     margin: offset,
     paddingHorizontal: offset,
     borderColor: '#111111',
