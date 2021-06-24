@@ -17,6 +17,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default class Registeration extends React.Component {
   constructor(props) {
@@ -83,36 +84,35 @@ export default class Registeration extends React.Component {
   render() {
     const {name, email, password, address, contactNo} = this.state;
     return (
-      <ImageBackground
-        source={require('../assets/bg2.jpg')}
+      <LinearGradient colors={['cadetblue', 'lightblue', 'cadetblue']} 
         style={styles.main}>
         {this.state.isLoading ? (
           <KeyboardAvoidingView>
-            <View style={styles.container}>
-              <TouchableOpacity
-                onPress={() => {
-                  // this.props.navigation.goBack();
-                  this.props.navigation.navigate('Home');
-                }}>
-                <View style={{marginVertical: 5, marginHorizontal: 10}}>
-                  <Icon name="arrow-back-ios" size={30} color="#48fbff" />
-                </View>
-              </TouchableOpacity>
-              <Text
-                style={{
-                  marginHorizontal: wp('20%'),
-                  fontSize: 28,
-                  fontWeight: 'bold',
-                  color: '#48fbff',
-                  alignSelf: 'center',
-                }}>
-                Registeration
-              </Text>
+            <View style={styles.header}>
+              <View style={styles.container}>
+                <TouchableOpacity
+                  onPress={() => {
+                    // this.props.navigation.goBack();
+                    this.props.navigation.navigate('Home');
+                  }}>
+                  <View style={{marginVertical: 5, marginHorizontal: 10}}>
+                    <Icon name="arrow-back-ios" size={30} color="#48fbff" />
+                  </View>
+                </TouchableOpacity>
+                <Text
+                  style={{
+                    marginHorizontal: wp('20%'),
+                    fontSize: 28,
+                    fontWeight: 'bold',
+                    color: '#48fbff',
+                    alignSelf: 'center',
+                  }}>
+                  Registeration
+                </Text>
+              </View>
             </View>
             <ScrollView>
-              {/* <View style={styles.container1}>
-                    <Text style={styles.textContainer1}>Registeration</Text>    
-                </View> */}
+            <LinearGradient colors={['cadetblue', 'lightblue', 'cadetblue']} style={styles.innerContainer} >
               <View style={styles.container2}>
                 <Text style={styles.textContainer2}>Name:</Text>
                 <TextInput
@@ -173,6 +173,8 @@ export default class Registeration extends React.Component {
                   <Text style={styles.buttonText}>Register</Text>
                 </TouchableOpacity>
               </View>
+              </LinearGradient>
+              <View style={styles.footer} />
             </ScrollView>
           </KeyboardAvoidingView>
         ) : (
@@ -180,7 +182,7 @@ export default class Registeration extends React.Component {
             <Text> Failed </Text>
           </View>
         )}
-      </ImageBackground>
+      </LinearGradient>
     );
   }
 }
@@ -189,13 +191,36 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     resizeMode: 'cover',
-    width: wp('100%'),
-    backgroundColor: '#f98b34',
   },
   //container
   container: {
     // borderWidth:1
     flexDirection: 'row',
+  },
+  innerContainer:{
+    borderTopLeftRadius: 180,
+    borderColor: 'cadetblue',
+    borderWidth: 5,
+    // paddingTop: wp('30%'),
+    height: hp('84%'), 
+    borderBottomRightRadius: 180,
+    opacity: 0.8,
+  },
+  header: {
+    height: hp('7%'), 
+    backgroundColor: 'cadetblue',
+    borderColor: 'cadetblue',
+    borderBottomRightRadius: 180,
+    borderWidth: 5,
+    opacity: 1
+  },
+  footer: {
+    height: hp('12%'), 
+    backgroundColor: 'cadetblue',
+    borderColor: 'cadetblue',
+    borderWidth: 5,
+    borderTopLeftRadius: 180,
+    opacity: 1
   },
   image: {
     marginVertical: 5,
@@ -205,7 +230,7 @@ const styles = StyleSheet.create({
   },
   //container1
   container1: {
-    height: hp('5%'),
+    // height: hp('5%'),
     // backgroundColor:'red',
     alignItems: 'center',
     justifyContent: 'center',
@@ -218,8 +243,8 @@ const styles = StyleSheet.create({
   },
   //container2
   container2: {
-    height: hp('72%'),
-    marginTop: hp('5%')
+    // height: hp('72%'),
+    // marginTop: hp('5%')
     // backgroundColor:'blue',
   },
   textContainer2: {
@@ -239,7 +264,7 @@ const styles = StyleSheet.create({
   },
   //conatainer3
   container3: {
-    height: hp('15%'),
+    // height: hp('15%'),
     // backgroundColor:'green',
     alignItems: 'center',
   },

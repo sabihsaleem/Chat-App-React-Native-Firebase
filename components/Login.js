@@ -18,6 +18,7 @@ import {
 } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default class Login extends Component {
   constructor(props) {
@@ -129,76 +130,75 @@ export default class Login extends Component {
   render() {
     const {userList, email, password} = this.state;
     return (
-      <ImageBackground
-        source={require('../assets/bg2.jpg')}
-        style={styles.main}>
+      <LinearGradient colors={['cadetblue', 'lightblue', 'cadetblue']} style={styles.main}>
         <View>
           {this.state.isLoading ? (
             <KeyboardAvoidingView>
-              <View style={styles.container}>
-                <TouchableOpacity
-                  onPress={() => {
-                    this.props.navigation.navigate('Home');
-                  }}>
-                  {/* <Image
-                        style={styles.image}
-                        source={require('../assets/Back3.png')}
-                    /> */}
-                  <View style={{marginVertical: 5, marginHorizontal: 10}}>
-                    <Icon name="arrow-back-ios" size={30} color="#48fbff" />
-                  </View>
-                </TouchableOpacity>
-                <Text
-                  style={{
-                    marginHorizontal: wp('30%'),
-                    fontSize: 28,
-                    fontWeight: 'bold',
-                    color: '#48fbff',
-                    alignSelf: 'center',
-                  }}>
-                  Login
-                </Text>
-              </View>
-              <ScrollView>
-                <View style={styles.container1}>
-                  <Text style={styles.textContainer1}>
-                    Welcome To Another Chat
+              <View style={styles.header}>
+                <View style={styles.container}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.props.navigation.navigate('Home');
+                    }}>
+                    <View style={{marginVertical: 5, marginHorizontal: 10}}>
+                      <Icon name="arrow-back-ios" size={30} color="white" />
+                    </View>
+                  </TouchableOpacity>
+                  <Text
+                    style={{
+                      marginHorizontal: wp('30%'),
+                      fontSize: 28,
+                      fontWeight: 'bold',
+                      color: 'white',
+                      alignSelf: 'center',
+                    }}>
+                    Login
                   </Text>
                 </View>
-                <View style={styles.container2}>
-                  <Text style={styles.textContainer2}>Email:</Text>
-                  <TextInput
-                    style={styles.textInputContainer2}
-                    placeholder="Enter Here"
-                    placeholderTextColor="white"
-                    value={email}
-                    onChangeText={email => this.setState({email: email})}
-                  />
-                  <Text style={styles.textContainer2}>Password:</Text>
-                  <TextInput
-                    style={styles.textInputContainer2}
-                    placeholder="Enter Here"
-                    placeholderTextColor="white"
-                    value={password}
-                    onChangeText={password =>
-                      this.setState({password: password})
-                    }
-                    secureTextEntry={true}
-                  />
-                </View>
-                <View style={styles.container3}>
-                  <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => this.onLogin()}>
-                    <Text style={styles.buttonText}>Sign in</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => this.onRegister()}>
-                    <Text style={styles.buttonText}>Register</Text>
-                  </TouchableOpacity>
-                </View>
+              </View>
+              <ScrollView>
+                <LinearGradient colors={['cadetblue', 'lightblue', 'cadetblue']} style={styles.innerContainer} >
+                  <View style={styles.container1}>
+                    <Text style={styles.textContainer1}>
+                      Welcome To Another Chat
+                    </Text>
+                  </View>
+                  <View style={styles.container2}>
+                    <Text style={styles.textContainer2}>Email:</Text>
+                    <TextInput
+                      style={styles.textInputContainer2}
+                      placeholder="Enter Here"
+                      placeholderTextColor="white"
+                      value={email}
+                      onChangeText={email => this.setState({email: email})}
+                    />
+                    <Text style={styles.textContainer2}>Password:</Text>
+                    <TextInput
+                      style={styles.textInputContainer2}
+                      placeholder="Enter Here"
+                      placeholderTextColor="white"
+                      value={password}
+                      onChangeText={password =>
+                        this.setState({password: password})
+                      }
+                      secureTextEntry={true}
+                    />
+                  </View>
+                  <View style={styles.container3}>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={() => this.onLogin()}>
+                      <Text style={styles.buttonText}>Sign in</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={() => this.onRegister()}>
+                      <Text style={styles.buttonText}>Register</Text>
+                    </TouchableOpacity>
+                  </View>
+              </LinearGradient>
               </ScrollView>
+              <View style={styles.footer} />
             </KeyboardAvoidingView>
           ) : (
             <View>
@@ -206,7 +206,7 @@ export default class Login extends Component {
             </View>
           )}
         </View>
-      </ImageBackground>
+      </LinearGradient>
     );
   }
 }
@@ -215,12 +215,19 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    width: wp('100%'),
   },
   container: {
     // borderWidth:1
     flexDirection: 'row',
+  },
+  innerContainer:{
+    borderTopLeftRadius: 180,
+    borderColor: 'cadetblue',
+    borderWidth: 5,
+    // paddingTop: wp('30%'),
+    height: hp('76.5%'), 
+    borderBottomRightRadius: 180,
+    opacity: 0.8,
   },
   image: {
     marginVertical: 5,
@@ -228,9 +235,25 @@ const styles = StyleSheet.create({
     height: hp('6.5%'),
     marginHorizontal: 5,
   },
+  header: {
+    height: hp('8%'), 
+    backgroundColor: 'cadetblue',
+    borderColor: 'cadetblue',
+    borderBottomRightRadius: 180,
+    borderWidth: 5,
+    opacity: 1
+  },
+  footer: {
+    height: hp('12%'), 
+    backgroundColor: 'cadetblue',
+    borderColor: 'cadetblue',
+    borderWidth: 5,
+    borderTopLeftRadius: 180,
+    opacity: 1
+  },
   //container1
   container1: {
-    height: hp('20%'),
+    height: hp('15%'),
     // backgroundColor:'red',
     alignItems: 'center',
     justifyContent: 'center',
@@ -239,11 +262,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#48fbff',
+    color: 'white',
   },
   //container2
   container2: {
-    height: hp('40%'),
+    height: hp('35%'),
     // backgroundColor:'blue',
   },
   textContainer2: {
@@ -251,13 +274,13 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#48fbff',
+    color: 'white',
   },
   textInputContainer2: {
     marginHorizontal: 10,
     width: wp('96%'),
     borderWidth: 2,
-    borderColor: '#67bae3',
+    borderColor: 'lightskyblue',
     paddingHorizontal: 10,
     color: 'white',
   },
@@ -271,7 +294,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderWidth: 2,
     borderRadius: 10,
-    borderColor: '#67bae3',
+    borderColor: 'lightskyblue',
     width: wp('96%'),
     height: hp('10%'),
     alignItems: 'center',
@@ -280,7 +303,7 @@ const styles = StyleSheet.create({
   buttonText: {
     marginVertical: 11,
     fontWeight: 'bold',
-    color: '#48fbff',
+    color: 'white',
     fontSize: 24,
     alignSelf: 'center',
   },
