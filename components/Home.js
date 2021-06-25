@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {
   TouchableOpacity,
-  ScrollView,
-  StatusBar,
+  Easing,
+  Animated,
   StyleSheet,
   Text,
   ImageBackground,
@@ -14,11 +14,24 @@ import {
 } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinearGradient from 'react-native-linear-gradient';
+import * as Animatable from 'react-native-animatable';
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      fadeAnim: new Animated.Value(0),
+    };
   }
+
+  fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(this.state.fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      easing: Easing.ease
+    }).start();
+  };
 
   componentDidMount() {
     AsyncStorage.getItem('@User').then(value => {
@@ -35,6 +48,7 @@ export default class Home extends Component {
         this.props.navigation.navigate('Dashboard');
       }
     });
+    this.fadeIn();
   }
 
   login = () => {
@@ -47,23 +61,29 @@ export default class Home extends Component {
 
   render() {
     return (
-      <LinearGradient colors={['cadetblue', 'lightblue', 'cadetblue']}  style={{flex: 1}}>
+      <LinearGradient
+        colors={['cadetblue', 'lightblue', 'cadetblue']}
+        style={{flex: 1}}>
         <View style={styles.header} />
-        <LinearGradient colors={['cadetblue', '#5a9eb0', 'cadetblue']} style={styles.container}>
-          <View style={styles.loginView}>
-            <TouchableOpacity
-              style={styles.loginbtn}
-              onPress={() => this.login()}>
-              <Text style={styles.loginbtnText}>Login</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.signupView}>
-            <TouchableOpacity
-              style={styles.signupbtn}
-              onPress={() => this.signup()}>
-              <Text style={styles.signupbtnText}>Signup</Text>
-            </TouchableOpacity>
-          </View>
+        <LinearGradient
+          colors={['cadetblue', '#5a9eb0', 'cadetblue']}
+          style={styles.container}>
+          <Animated.View style={{opacity: this.state.fadeAnim}}>
+            <View style={styles.loginView}>
+              <TouchableOpacity
+                style={styles.loginbtn}
+                onPress={() => this.login()}>
+                <Text style={styles.loginbtnText}>Login</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.signupView}>
+              <TouchableOpacity
+                style={styles.signupbtn}
+                onPress={() => this.signup()}>
+                <Text style={styles.signupbtnText}>Signup</Text>
+              </TouchableOpacity>
+            </View>
+          </Animated.View>
         </LinearGradient>
         <View style={styles.footer} />
       </LinearGradient>
@@ -83,23 +103,23 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingTop: wp('30%'),
     borderBottomRightRadius: 180,
-    opacity: 0.8
+    opacity: 0.8,
   },
   header: {
-    flex: 0.2, 
+    flex: 0.2,
     backgroundColor: 'cadetblue',
     borderColor: 'cadetblue',
     borderBottomRightRadius: 180,
     borderWidth: 1,
-    opacity: 1
+    opacity: 1,
   },
   footer: {
-    flex: 0.2, 
+    flex: 0.2,
     backgroundColor: 'cadetblue',
     borderColor: 'cadetblue',
     borderWidth: 1,
     borderTopLeftRadius: 180,
-    opacity: 1
+    opacity: 1,
   },
   loginView: {
     marginBottom: wp('20%'),
