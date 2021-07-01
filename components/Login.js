@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     borderColor: 'cadetblue',
     borderWidth: 5,
     // paddingTop: wp('30%'),
-    height: hp('76.5%'), 
+    height: hp('80.5%'), 
     borderBottomRightRadius: 180,
     opacity: 0.8,
   },
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
     opacity: 1
   },
   footer: {
-    height: hp('12%'), 
+    height: hp('8%'), 
     backgroundColor: 'cadetblue',
     borderColor: 'cadetblue',
     borderWidth: 5,
@@ -277,10 +277,10 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   textInputContainer2: {
-    marginHorizontal: 10,
+    // marginHorizontal: 10,
     width: wp('96%'),
     borderWidth: 2,
-    borderColor: 'lightskyblue',
+    borderColor: 'white',
     paddingHorizontal: 10,
     color: 'white',
   },
@@ -289,12 +289,13 @@ const styles = StyleSheet.create({
     height: hp('30%'),
     // backgroundColor:'green',
     alignItems: 'center',
+    marginVertical: wp('6%')
   },
   button: {
     marginVertical: 10,
     borderWidth: 2,
     borderRadius: 10,
-    borderColor: 'lightskyblue',
+    borderColor: 'white',
     width: wp('96%'),
     height: hp('10%'),
     alignItems: 'center',

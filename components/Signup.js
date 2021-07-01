@@ -96,7 +96,7 @@ export default class Registeration extends React.Component {
                     this.props.navigation.navigate('Home');
                   }}>
                   <View style={{marginVertical: 5, marginHorizontal: 10}}>
-                    <Icon name="arrow-back-ios" size={30} color="#48fbff" />
+                    <Icon name="arrow-back-ios" size={30} color="white" />
                   </View>
                 </TouchableOpacity>
                 <Text
@@ -104,7 +104,7 @@ export default class Registeration extends React.Component {
                     marginHorizontal: wp('20%'),
                     fontSize: 28,
                     fontWeight: 'bold',
-                    color: '#48fbff',
+                    color: 'white',
                     alignSelf: 'center',
                   }}>
                   Registeration
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#48fbff',
+    color: 'white',
   },
   //container2
   container2: {
@@ -252,13 +252,13 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#48fbff',
+    color: 'white',
   },
   textInputContainer2: {
-    marginHorizontal: 10,
+    marginHorizontal: 3,
     width: wp('96%'),
     borderWidth: 2,
-    borderColor: '#67bae3',
+    borderColor: 'white',
     paddingHorizontal: 10,
     color: 'white',
   },
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderWidth: 2,
     borderRadius: 10,
-    borderColor: '#67bae3',
+    borderColor: 'white',
     width: wp('96%'),
     height: hp('10%'),
     alignItems: 'center',
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
   buttonText: {
     marginVertical: 11,
     fontWeight: 'bold',
-    color: '#48fbff',
+    color: 'white',
     fontSize: 24,
     alignSelf: 'center',
   },

@@ -16,6 +16,7 @@ import {
 } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -76,62 +77,70 @@ export default class Dashboard extends Component {
   render() {
     const {data} = this.state;
     return (
-      <ImageBackground
-        source={require('../assets/bg2.jpg')}
+      <LinearGradient colors={['cadetblue', 'lightblue', 'cadetblue']} 
         style={styles.main}>
         <View style={styles.main}>
-          <View
-            style={{
-              flexDirection: 'row',
-            }}>
-            <TouchableOpacity
-              onPress={() => {
-                // this.props.navigation.goBack();
-                this.props.navigation.navigate('Home');
-              }}>
-              <View style={{marginVertical: 5}}>
-                <Icon name="arrow-back-ios" size={30} color="#48fbff" />
-              </View>
-            </TouchableOpacity>
-            <Text
+          
+          <View style={styles.header}>
+
+            <View
               style={{
-                marginHorizontal: wp('28%'),
-                fontSize: 28,
-                fontWeight: 'bold',
-                color: '#48fbff',
-                alignSelf: 'center',
+                flexDirection: 'row',
               }}>
-              Dashboard
-            </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  // this.props.navigation.goBack();
+                  this.props.navigation.navigate('Home');
+                }}>
+                <View style={{marginVertical: 5}}>
+                  {/* <Icon name="arrow-back-ios" size={30} color="white" /> */}
+                </View>
+              </TouchableOpacity>
+              <Text
+                style={{
+                  marginHorizontal: wp('28%'),
+                  fontSize: 28,
+                  fontWeight: 'bold',
+                  color: 'white',
+                  alignSelf: 'center',
+                }}>
+                Dashboard
+              </Text>
+            </View>
+
           </View>
-          <View style={{marginVertical: wp('5%')}}>
-            <FlatList
-              style={styles.list}
-              data={data}
-              // ListEmptyComponent={() => this.emptyComponent()}
-              renderItem={({item, index}) => (
-                <TouchableOpacity
-                  onPress={() => this.listData(item)}
-                >
-                  <View style={styles.container1FlatlistView}>
-                    <View style={{marginVertical: 5, width: wp('50%')}}>
-                      <View style={styles.flatListContactNoView}>
-                        <Text style={styles.flatListText}>
-                          {item.name.toUpperCase()}
-                        </Text>
-                        <Text style={styles.flatListText}>
-                          {item.contactNo}
-                        </Text>
+          <View style={{marginVertical: wp('0%')}}>
+            <ScrollView>
+            <LinearGradient colors={['cadetblue', 'lightblue', 'cadetblue']} style={styles.innerContainer} >
+              <FlatList
+                style={styles.list}
+                data={data}
+                // ListEmptyComponent={() => this.emptyComponent()}
+                renderItem={({item, index}) => (
+                  <TouchableOpacity
+                    onPress={() => this.listData(item)}
+                  >
+                    <View style={styles.container1FlatlistView}>
+                      <View style={{marginVertical: 5, width: wp('50%')}}>
+                        <View style={styles.flatListContactNoView}>
+                          <Text style={styles.flatListText}>
+                            {item.name.toUpperCase()}
+                          </Text>
+                          <Text style={styles.flatListText}>
+                            {item.contactNo}
+                          </Text>
+                        </View>
                       </View>
                     </View>
-                  </View>
-                </TouchableOpacity>
-              )}
-              keyExtractor={(item, index) => `${index}`}
-            />
+                  </TouchableOpacity>
+                )}
+                keyExtractor={(item, index) => `${index}`}
+              />
+            </LinearGradient>
+            </ScrollView>
           </View>
 
-          <View style={{marginTop: 'auto'}}>
+          <View style={styles.footer}>
             <TouchableOpacity
               style={styles.buttonSignOut}
               onPress={() => this.signOut()}>
@@ -139,7 +148,7 @@ export default class Dashboard extends Component {
             </TouchableOpacity>
           </View>
         </View>
-      </ImageBackground>
+      </LinearGradient>
     );
   }
 }
@@ -148,14 +157,41 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     width: wp('100%'),
+  },
+  innerContainer:{
+    borderTopLeftRadius: 180,
+    borderColor: 'cadetblue',
+    borderWidth: 5,
+    // paddingTop: wp('30%'),
+    height: hp('75%'), 
+    borderBottomRightRadius: 180,
+    opacity: 0.8,
+  },
+  header: {
+    height: hp('7%'), 
+    backgroundColor: 'cadetblue',
+    borderColor: 'cadetblue',
+    borderBottomRightRadius: 180,
+    borderWidth: 5,
+    opacity: 1,
+    width: wp('100%'),
+  },
+  footer: {
+    height: hp('14.5%'), 
+    backgroundColor: 'cadetblue',
+    borderColor: 'cadetblue',
+    borderWidth: 5,
+    borderTopLeftRadius: 180,
+    opacity: 1,
+    marginTop: 'auto'
   },
   buttonSignOut: {
     marginVertical: 10,
     borderWidth: 2,
     borderRadius: 10,
-    borderColor: '#67bae3',
+    borderColor: 'white',
     width: wp('96%'),
     height: hp('10%'),
     alignItems: 'center',
@@ -164,20 +200,20 @@ const styles = StyleSheet.create({
   buttonTextSignOut: {
     marginVertical: 11,
     fontWeight: 'bold',
-    color: '#48fbff',
+    color: 'white',
     fontSize: 24,
     alignSelf: 'center',
   },
   list: {
-    width: wp('100%'),
+    width: wp('96%'),
   },
   container1FlatlistView: {
     borderRadius: 15,
     marginVertical: 5,
     borderWidth: 2,
-    width: '95%',
+    width: wp('95%'),
     alignSelf: 'center',
-    borderColor: '#67bae3',
+    borderColor: 'white',
   },
   flatListContactNoView: {
     justifyContent: 'space-between',
@@ -186,7 +222,8 @@ const styles = StyleSheet.create({
   },
   flatListText: {
     paddingHorizontal: 20,
-    color: '#48fbff',
+    color: 'white',
     fontSize: 18,
+    width: wp('50%'),
   },
 });
