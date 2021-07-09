@@ -19,8 +19,10 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
+import { signIn } from "../redux/actions/AuthActions";
+import { connect } from 'react-redux';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,6 +30,7 @@ export default class Login extends Component {
       password: '',
       isLoading: true,
       userList: [],
+      state: this.props.state,
     };
   }
 
@@ -52,6 +55,7 @@ export default class Login extends Component {
   }
 
   onLogin() {
+    const { dispatch, } = this.props;
     if (this.state.email && this.state.password) {
       let xuserList = this.state.userList.filter(
         el => el.email.toLowerCase() === this.state.email.toLowerCase(),
@@ -85,7 +89,13 @@ export default class Login extends Component {
               console.log('error', error);
               Alert.alert('Error!', 'Incorrect Data');
             });
-        } else {
+            var payload = {
+              Email: this.state.email,
+              Password: this.state.password,
+            };
+            dispatch(signIn(payload));
+        } 
+        else {
           console.log('xxuserList');
           firebase
             .auth()
@@ -112,8 +122,14 @@ export default class Login extends Component {
               console.log('error', error);
               Alert.alert('Error!', 'Incorrect Data');
             });
+            var payload = {
+              Email: this.state.email,
+              Password: this.state.password,
+            };
+            dispatch(signIn(payload));
         }
-      } else {
+      }
+      else {
         Alert.alert('Error!', 'Incorrect Data Enter');
       }
     } else {
@@ -210,6 +226,12 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  state: state
+});
+
+export default connect(mapStateToProps)(Login);
 
 const styles = StyleSheet.create({
   main: {

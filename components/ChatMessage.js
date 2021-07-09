@@ -40,14 +40,46 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import { signIn } from "../redux/actions/AuthActions";
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthData } from '../redux/reducers/AuthReducer';
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+  MenuProvider
+} from 'react-native-popup-menu';
 
-export default function ChatMessage({route}) {
+// export const YourComponent = () => (
+//   alert('s'),
+//   <View>
+//     <MenuProvider>
+//     <Text>Hello world!</Text>
+//     <Menu>
+//       <MenuTrigger text='Select action' />
+//       <MenuOptions>
+//         <MenuOption onSelect={() => alert(`Save`)} text='Save' />
+//         <MenuOption onSelect={() => alert(`Delete`)} >
+//           <Text style={{color: 'red'}}>Delete</Text>
+//         </MenuOption>
+//         <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text='Disabled' />
+//       </MenuOptions>
+//     </Menu>
+//     </MenuProvider>
+//   </View>
+// );
+
+export default function ChatMessage({route, navigation}) {
   const [messages, setMessages] = useState([]);
   const [key1, setKey1] = useState('')
   const [key2, setKey2] = useState('')
   const [name, setName] = useState('')
   const [nameUser, setNameUser] = useState('')
   const [contactNoUser, setContactNoUser] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const dispatch = useDispatch()
  
   useEffect(() => {
     console.log('this.props',route.params.item)
@@ -58,6 +90,12 @@ export default function ChatMessage({route}) {
     let key2 = route.params.item.key
     console.log('this.state',key2)
     setKey2(key2)
+    let email = route.params.item.email
+    console.log('this.state.email',email)
+    setEmail(key2)
+    let password = route.params.item.password
+    console.log('this.state.password',password)
+    setPassword(password)
     setMessages([
       {
         _id: key2,
@@ -74,6 +112,25 @@ export default function ChatMessage({route}) {
     console.log('key1', key1)
     console.log('key2', key2)
     console.log('messages', messages)
+    var payload = {
+      Email: email,
+      Password: password,
+    };
+    dispatch(signIn(payload));
+
+    const authData = AsyncStorage.getItem('@User')
+    .then(value => {
+      let data = JSON.parse(value);
+      let dataList = [];
+      for (const element in data) {
+        value = {...data[element], element};
+        dataList.push(value);
+      }
+      console.log('dataList...', dataList);
+      
+    });
+    dispatch(setAuthData(payload))
+
   }, [])
 
   const fire = () => {
@@ -124,7 +181,7 @@ export default function ChatMessage({route}) {
         <View style={styles.rowMain}>
 
           <View style={{justifyContent: 'center', marginBottom: wp('4%'), marginHorizontal: wp('2%')}} >
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.goBack()} >
               {/* <Image style={styles.moreOptions} source={require('../assets/moreOptions.png')} /> */}
               <Icon name="arrow-left" size={30} color="white" />
             </TouchableOpacity>
@@ -151,7 +208,9 @@ export default function ChatMessage({route}) {
           </View>
 
           <View style={styles.moreOptionsView} >
-            <TouchableOpacity>
+            <TouchableOpacity 
+              // onPress={() => YourComponent()}
+            >
               {/* <Image style={styles.moreOptions} source={require('../assets/moreOptions.png')} /> */}
               <Icon name="options-vertical" type={"SimpleLineIcons"} size={30} color="white" />
             </TouchableOpacity>
